@@ -21,14 +21,18 @@ before install:
   - export KUBE_CLUSTER_CERTIFICATE=$(cat $PWD/ca.crt)
   - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
   - export KUBE_CLIENT_KEY=$PWD/employee.key
+#------------v--string below changeing variables in config.tpl file with values setted above and then write resulting file to the ${HOME}/.kube/config file
   - cat config.tpl | envsubst > ${HOME}/.kube/config
-  - cat ${HOME}/.kube/config
+#  - cat ${HOME}/.kube/config
 #  - echo $KUBECONFIG
-  - ls -al ${HOME}/.kube/
-#  - kubectl config set-credentials employee --client-key=$PWD/employee.key --embed-certs=true
-#  - kubectl config set-context employee-context --cluster=AKSEngine --namespace=office --user=employee
+#  - ls -al ${HOME}/.kube/
+#  set credential to connect to cluster
+  - kubectl config set-credentials employee --client-key=$PWD/employee.key --embed-certs=true
+# set context for all subsequent kubectl commands to namespace 'office'
+  - kubectl config set-context employee-context --cluster=AKSEngine --namespace=office --user=employee
+# for diagnostic - show resulting config 
   - kubectl config view
-#  - kubectl --context=employee-context get pods
+  - kubectl --context=employee-context get pods
   
  
 
