@@ -23,10 +23,10 @@ before install:
   - export KUBE_CLIENT_KEY=$PWD/employee.key
   - cat config.tpl | envsubst > kubeconfig
   - cat kubeconfig
-  - kubectl config set-credentials employee --client-key=$PWD/employee.key --embed-certs=true
-  - kubectl config set-context employee-context --cluster=AKSEngine --namespace=office --user=employee
+#  - kubectl config set-credentials employee --client-key=$PWD/employee.key --embed-certs=true
+#  - kubectl config set-context employee-context --cluster=AKSEngine --namespace=office --user=employee
   - kubectl config view
-  - kubectl --context=employee-context get pods
+#  - kubectl --context=employee-context get pods
   
  
 
