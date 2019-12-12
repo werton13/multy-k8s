@@ -7,12 +7,10 @@ before install:
   - sudo mv ./kubectl /usr/local/bin/kubectl
 #  - curl -o config https://$GITHUB_ACCESS_TOKEN@raw.githubusercontent.com/GithubOrganization/MySecretInfrastructureRepo/master/.kube/config
 # here we get config file from AzS storage account, which URI is stored in Travis CI environment variable $AZS_SA_SAS_CONFIG
-#  - echo "$TEST_EV"
-#  - curl "$TEST_EV"
   - echo $AZS_SA_SAS_CONFIG_URL
   - curl -o config.tpl $AZS_SA_SAS_CONFIG_URL
   - curl $KUBE_CLUSTER_CERTIFICATE_URL | base64 -w0 > ca.crt
-  - curl -o employee.crt $KUBE_CLIENT_CERTIFICATE_URL"
+  - curl -o employee.crt $KUBE_CLIENT_CERTIFICATE_URL
   - curl -o employee.key $KUBE_CLIENT_KEY_URL
   - mkdir ${HOME}/.kube
   - cp config.tpl ${HOME}/.kube/config.tpl
@@ -24,7 +22,7 @@ before install:
   - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
   - export KUBE_CLIENT_KEY=$PWD/employee.key
   - cat config.tpl | envsubst > kubeconfig
-  - echo kubeconfig
+ 
 
 
 
