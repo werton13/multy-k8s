@@ -26,6 +26,7 @@ before install:
   - kubectl config set-credentials employee --client-key=$PWD/employee.key --embed-certs=true
   - kubectl config set-context employee-context --cluster=AKSEngine --namespace=office --user=employee
   - kubectl --context=employee-context get pods
+  - kubectl config view 
  
 
 
