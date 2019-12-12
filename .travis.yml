@@ -22,6 +22,7 @@ before install:
   - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
   - export KUBE_CLIENT_KEY=$PWD/employee.key
   - cat config.tpl | envsubst > kubeconfig
+  - cat kubeconfig
 
  
 
