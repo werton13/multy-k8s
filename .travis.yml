@@ -5,10 +5,22 @@ before install:
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl
-  - curl -o config https://$GITHUB_ACCESS_TOKEN@raw.githubusercontent.com/GithubOrganization/MySecretInfrastructureRepo/master/.kube/config
+#  - curl -o config https://$GITHUB_ACCESS_TOKEN@raw.githubusercontent.com/GithubOrganization/MySecretInfrastructureRepo/master/.kube/config
+# here we get config file from AzS storage account, which URI is stored in Travis CI environment variable $AZS_SA_SAS_CONFIG
+  - curl -o config.tpl "$AZS_SA_SAS_CONFIG_URL"
+  - curl "$KUBE_CLUSTER_CERTIFICATE_URL" | base64 -w0 > ca.crt
+  - curl -o employee.crt "$KUBE_CLIENT_CERTIFICATE_URL"
+  - curl -o employee.key "$KUBE_CLIENT_KEY_URL"
   - mkdir ${HOME}/.kube
-  - cp config ${HOME}/.kube/config
+  - cp config.tpl ${HOME}/.kube/config.tpl
+  - cp ca.crt ${HOME}/.kube/
+  - cp employee.crt ${HOME}/.kube/
+  - cp employee.key ${HOME}/.kube
 # Fill out missing params in kubectl config file
-  - kubectl config set clusters.AKSEngine.certificate-authority-data $KUBE_CLUSTER_CERTIFICATE
-  - kubectl config set users.employee.client-certificate-data $KUBE_CLIENT_CERTIFICAT
-  - kubectl config set users.employee.client-key-data $KUBE_CLIENT_KEY
+  - export KUBE_CLUSTER_CERTIFICATE=$(cat /home/kuberadm/K8smgmt/ca.crt)
+  - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
+  - export KUBE_CLIENT_KEY=$PWD/employee.key
+  - cat config.tpl | envsubst > kubeconfig
+  - echo kubeconfig
+
+
