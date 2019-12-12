@@ -9,6 +9,7 @@ before install:
 # here we get config file from AzS storage account, which URI is stored in Travis CI environment variable $AZS_SA_SAS_CONFIG
 #  - echo "$TEST_EV"
 #  - curl "$TEST_EV"
+  - echo "$AZS_SA_SAS_CONFIG_URL"
   - curl -o config.tpl "$AZS_SA_SAS_CONFIG_URL"
   - curl $KUBE_CLUSTER_CERTIFICATE_URL | base64 -w0 > ca.crt
   - curl -o employee.crt $KUBE_CLIENT_CERTIFICATE_URL"
