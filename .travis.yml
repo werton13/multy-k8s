@@ -16,12 +16,12 @@ before install:
   - cp config.tpl ${HOME}/.kube/config.tpl
   - cp ca.crt ${HOME}/.kube/
   - cp employee.crt ${HOME}/.kube/
-  - cp employee.key ${HOME}/.kube
+  - cp employee.key ${HOME}/.kube/
 # Fill out missing params in kubectl config file
   - export KUBE_CLUSTER_CERTIFICATE=$(cat $PWD/ca.crt)
   - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
   - export KUBE_CLIENT_KEY=$PWD/employee.key
-  - cat config.tpl | envsubst > kubeconfig
+  - cat config.tpl | envsubst > ${HOME}/.kube/kubeconfig
   - cat kubeconfig
 #  - echo $KUBECONFIG
   - ls -al ${HOME}/.kube/
