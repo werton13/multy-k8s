@@ -22,7 +22,7 @@ before install:
   - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
   - export KUBE_CLIENT_KEY=$PWD/employee.key
   - cat config.tpl | envsubst > ${HOME}/.kube/kubeconfig
-  - cat kubeconfig
+  - cat ${HOME}/.kube/kubeconfig
 #  - echo $KUBECONFIG
   - ls -al ${HOME}/.kube/
 #  - kubectl config set-credentials employee --client-key=$PWD/employee.key --embed-certs=true
