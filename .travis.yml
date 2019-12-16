@@ -1,6 +1,11 @@
 sudo: required
 services:
   - docker
+env:
+  global:
+# for using GIT_SHA id in deploy script for tagging images using GIT_SHA
+    - GIT_SHA=$(git rev-parse HEAD)
+
 before install:
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
@@ -32,10 +37,22 @@ before install:
   - kubectl config set-context employee-context --cluster=AKSEngine --namespace=office --user=employee
 # for diagnostic - show resulting config 
   - kubectl config view
-  - kubectl --context=employee-context get pods
+#  - kubectl --context=employee-context get pods
+  -  kubectl --context=employee-context create secret generic pgpassword --from-literal PGPASSWORD="$PG_PASSWORD"
   
 #login to the docker CLI
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin docker.io
+   - docker build -t werton13/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+#  - docker run werton13/react-test npm test -- --coverage
+  - docker run -e CI=true w13/react-test npm run test
+  
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master
  
 
 
