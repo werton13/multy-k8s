@@ -38,7 +38,7 @@ before install:
 # for diagnostic - show resulting config 
   - kubectl config view
 #  - kubectl --context=employee-context get pods
-  - kubectl --context=employee-context create secret generic pgpassword --from-literal PGPASSWORD="$PG_PASSWORD"
+#  - kubectl --context=employee-context create secret generic pgpassword --from-literal PGPASSWORD="$PG_PASSWORD"
   
 #login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin docker.io
