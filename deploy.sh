@@ -8,6 +8,10 @@ docker push werton13/multi-client:$GIT_SHA
 docker push werton13/multi-server:$GIT_SHA
 docker push werton13/multi-worker:$GIT_SHA
 echo $PWD
+echo "content of $PWD folder:"
+ls -al
+cat employee.crt
+
 kubectl apply -f K8s
 kubectl set image  deployments/server-deployment server=werton13/multi-server:$GIT_SHA
 kubectl set image  deployments/client-deployment client=werton13/multi-client:$GIT_SHA

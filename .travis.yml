@@ -21,8 +21,8 @@ before install:
   - cp config.tpl ${HOME}/.kube/config.tpl
   - cp ca.crt ${HOME}/.kube/
   - echo $PWD
-  - cp employee.crt $PWD
-  - cp employee.key $PWD
+#  - cp employee.crt $PWD
+#  - cp employee.key $PWD
 # Fill out missing params in kubectl config file
   - export KUBE_CLUSTER_CERTIFICATE=$(cat $PWD/ca.crt)
   - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
