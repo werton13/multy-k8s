@@ -22,13 +22,13 @@ before install:
   - mkdir ${HOME}/.kube
   - cp config.tpl ${HOME}/.kube/config.tpl
   - cp ca.crt ${HOME}/.kube/
-  - echo $PWD
-#  - cp employee.crt $PWD
-#  - cp employee.key $PWD
+#  - echo $PWD
+  - cp employee.crt ${HOME}/.kube/
+  - cp employee.key ${HOME}/.kube/
 # Fill out missing params in kubectl config file
   - export KUBE_CLUSTER_CERTIFICATE=$(cat $PWD/ca.crt)
-  - export KUBE_CLIENT_CERTIFICATE=$PWD/employee.crt
-  - export KUBE_CLIENT_KEY=$PWD/employee.key
+  - export KUBE_CLIENT_CERTIFICATE=${HOME}/.kube/employee.crt
+  - export KUBE_CLIENT_KEY=${HOME}/.kube/employee.key
 #------------v--string below changeing variables in config.tpl file with values setted above and then write resulting file to the ${HOME}/.kube/config file
   - cat config.tpl | envsubst > ${HOME}/.kube/config
 #  - cat ${HOME}/.kube/config
