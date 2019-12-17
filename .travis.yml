@@ -46,8 +46,8 @@ before install:
 
 script:
 # --------
-#  - docker run werton13/react-test npm test -- --coverage
-  - docker run -e CI=true w13/react-test npm run test
+  - docker run werton13/react-test npm test -- --coverage
+#  - docker run -e CI=true w13/react-test npm run test
   
 deploy:
   provider: script
