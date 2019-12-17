@@ -17,6 +17,8 @@ before install:
   - curl $KUBE_CLUSTER_CERTIFICATE_URL | base64 -w0 > ca.crt
   - curl -o employee.crt $KUBE_CLIENT_CERTIFICATE_URL
   - curl -o employee.key $KUBE_CLIENT_KEY_URL
+  - echo $PWD
+  - ls -la
   - mkdir ${HOME}/.kube
   - cp config.tpl ${HOME}/.kube/config.tpl
   - cp ca.crt ${HOME}/.kube/
