@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: werton13/multi-server
+          image: stephengrider/multi-server
           ports:
             - containerPort: 5000
           env:
@@ -32,11 +32,6 @@ spec:
               value: postgres
             - name: PGPASSWORD
               valueFrom:
-                secretKeyRef: 
+                secretKeyRef:
                   name: pgpassword
                   key: PGPASSWORD
-
-
-
- 
-
